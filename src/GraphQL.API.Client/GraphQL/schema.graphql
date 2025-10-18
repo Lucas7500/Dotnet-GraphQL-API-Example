@@ -1,0 +1,141 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Represents a book in the catalog."
+type Book {
+  "The unique identifier of the book."
+  id: Int!
+  "The title of the book."
+  title: String!
+  "The author of the book."
+  author: Author!
+  "The price of the book."
+  price: Decimal!
+}
+
+"Represents a book author."
+type Author {
+  "The unique identifier for the author."
+  id: Int!
+  "Author name."
+  name: String!
+  "Birth date."
+  birthDate: DateTime!
+}
+
+type Query {
+  books(where: BookFilterInput order: [BookSortInput!]): [Book!]!
+  bookById(id: Int!): Book
+  authors(where: AuthorFilterInput order: [AuthorSortInput!]): [Author!]!
+}
+
+type Mutation {
+  addBook(title: String! authorId: Int! price: Decimal!): Book!
+  addAuthor(name: String! birthDate: DateTime!): Author!
+}
+
+"The `Decimal` scalar type represents a decimal floating-point number."
+scalar Decimal
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+input BookFilterInput {
+  and: [BookFilterInput!]
+  or: [BookFilterInput!]
+  id: IntOperationFilterInput
+  title: StringOperationFilterInput
+  author: AuthorFilterInput
+  price: DecimalOperationFilterInput
+}
+
+input BookSortInput {
+  id: SortEnumType
+  title: SortEnumType
+  author: AuthorSortInput
+  price: SortEnumType
+}
+
+input AuthorFilterInput {
+  and: [AuthorFilterInput!]
+  or: [AuthorFilterInput!]
+  id: IntOperationFilterInput
+  name: StringOperationFilterInput
+  birthDate: DateTimeOperationFilterInput
+}
+
+input AuthorSortInput {
+  id: SortEnumType
+  name: SortEnumType
+  birthDate: SortEnumType
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input DecimalOperationFilterInput {
+  eq: Decimal
+  neq: Decimal
+  in: [Decimal]
+  nin: [Decimal]
+  gt: Decimal
+  ngt: Decimal
+  gte: Decimal
+  ngte: Decimal
+  lt: Decimal
+  nlt: Decimal
+  lte: Decimal
+  nlte: Decimal
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost("The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc." weight: String!) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
