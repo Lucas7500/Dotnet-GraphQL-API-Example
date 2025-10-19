@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GraphQL.API.GraphQL.Client/GraphQL.API.GraphQL.Client.csproj" />
+    <Project Path="src/GraphQL.API.HttpClient.Client/GraphQL.API.HttpClient.Client.csproj" />
+    <Project Path="src/GraphQL.API.Server/GraphQL.API.Server.csproj" />
+    <Project Path="src/GraphQL.API.StrawberryShake.Client/GraphQL.API.StrawberryShake.Client.csproj" />
+  </Folder>
+</Solution>
